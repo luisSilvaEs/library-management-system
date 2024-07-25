@@ -1,4 +1,5 @@
-import Button from "./components/common/NavigationButton";
+import NavigationButton from "./components/common/navigationButton/NavigationButton";
+import Books from "./pages/books/Books"
 
 function App() {
   return (
@@ -9,8 +10,10 @@ function App() {
         </h1>
       </div>
       <div className="container mx-auto pt-9 flex justify-around">
+      
       <NavigationButton text="Login" type="primary" />
       <NavigationButton text="Register" type="terciary" />
+      <Books />
       </div>
     </div>
   );
