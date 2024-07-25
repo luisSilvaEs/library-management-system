@@ -1,4 +1,23 @@
+import React, { useEffect, useState } from "react";
+import SearchForm from "../../components/common/form/SearchForm";
+import List from "../../components/common/list/List";
+import { searchBooks as fetchBooksAPI } from "../../api/booksApi";
+
 const Books = () => {
+  const [query, setQuery] = useState("");
+  const [collection, setCollection] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    console.log("Rerendered due to query ", query);
+  }, [query]);
+
+  useEffect(() => {
+    console.log("Rerendered due to collection ", query);
+  }, [collection]);
+
+  /*
   const collection = [
     {
       author_name: ["J.R.R. Tolkien"],
@@ -37,30 +56,35 @@ const Books = () => {
       key: "/works/OL27489Z",
     },
   ];
+*/
+
+  const handleSearch = async () => {
+    console.log("CLicked");
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await fetchBooksAPI(query);
+      const books = data.docs;
+      setCollection(books);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
-      <ul role="list" className="divide-y divide-gray-100">
-        {collection.map((book) => (
-          <li key={book.key} className="flex justify-between gap-x-6 py-5">
-            <div className="flex min-w-0 gap-x-4">
-              <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold leading-6 text-gray-900">
-                  {book.title}
-                </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  {book.author_name[0]}
-                </p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">
-                  First published in {book.publish_year[0]}
-                </p>
-              </div>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <SearchForm
+        searchTerm={query}
+        setSearchTerm={setQuery}
+        action={handleSearch}
+      />
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      <List collection={collection} />
     </>
   );
 };
 
-export default Books;
+export default React.memo(Books);

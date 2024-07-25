@@ -11,8 +11,7 @@ function App() {
       </div>
       <div className="container mx-auto pt-9 flex justify-around">
       
-      <NavigationButton text="Login" type="primary" />
-      <NavigationButton text="Register" type="terciary" />
+      
       <Books />
       </div>
     </div>

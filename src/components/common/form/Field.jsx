@@ -1,24 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
-/**
- * 
-  icon?: JSX.Element;
-  message: string;
-  validationPattern?: RegExp;
- * 
- */
-
-/**
- * 
-  classesForLabel?: string;
-  classesForInput?: string;
-  type: "email" | "text" | "password";
-  id: string;
-  labelWording: string;
-  value?: React.RefObject<HTMLInputElement>;
-  errorSettings?: FieldError;
-  *
-*/
 const Field = ({
   classesForLabel,
   classesForInput,
@@ -27,12 +8,11 @@ const Field = ({
   labelWording,
   value,
   errorSettings,
+  onChange,
 }) => {
   const [error, setError] = useState(errorSettings);
 
-  const validateInputContentFormatAfterTyping = (
-    event
-  ) => {
+  const validateInputContentFormatAfterTyping = (event) => {
     const entryInput = event.target.value;
 
     if (errorSettings?.validationPattern?.test(entryInput)) {
@@ -42,7 +22,7 @@ const Field = ({
     }
   };
 
-  const validateInputContentOnLeaveInput = ( event ) => {
+  const validateInputContentOnLeaveInput = (event) => {
     const entryInput = event.target.value;
 
     if (!errorSettings?.validationPattern?.test(entryInput)) {
@@ -58,7 +38,7 @@ const Field = ({
       });
     }
   };
-
+  /** removed ref={value ? value : ""} from input */
   return (
     <>
       <label htmlFor={type} className={classesForLabel}>
@@ -67,9 +47,9 @@ const Field = ({
       <input
         type={type}
         id={id}
-        ref={value ? value : ""}
+        value={value}
         onBlur={validateInputContentOnLeaveInput}
-        onChange={validateInputContentFormatAfterTyping}
+        onChange={onChange ? onChange : validateInputContentFormatAfterTyping}
         className={`${classesForInput ? classesForInput : ""} ${
           error?.validationPattern?.test(value?.current?.value || "")
             ? "valid-format"
@@ -90,4 +70,4 @@ const Field = ({
   );
 };
 
-export default Field;
+export default React.memo(Field);
