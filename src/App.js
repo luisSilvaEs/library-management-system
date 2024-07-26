@@ -1,9 +1,11 @@
-import NavigationButton from "./components/common/navigationButton/NavigationButton";
 import Books from "./pages/books/Books";
 import Detail from "./pages/detail/Detail";
+import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import { Route, Routes } from "react-router-dom";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <div className="container mx-auto pt-9 flex justify-around">
@@ -12,8 +14,17 @@ function App() {
         </h1>
       </div>
       <div className="container mx-auto pt-9 flex flex-col justify-around">
-       <Login />
+       
       </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/books">
+          <Route index element={<Books />} />
+          <Route path="detail/v12" element={<Detail />} />
+        </Route>
+      </Routes>
     </div>
   );
 }

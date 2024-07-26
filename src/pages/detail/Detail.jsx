@@ -10,14 +10,18 @@
  * + Operation to Delete data
  */
 
+import { useParams } from "react-router-dom";
 import DetailForm from "../../components/common/form/DetailForm";
 
 const Detail = () => {
+  const id = useParams();
+
   const book = {
     author: "Author Name",
     isbn: "123-456-789",
     title: "Book Title",
     publishedYear: 2021,
+    id: "b12",
   };
 
   return (

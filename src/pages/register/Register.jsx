@@ -43,7 +43,7 @@ const Register = () => {
     },
   ];
 
-  return <LoginForm fields={loginFormFields} />;
+  return <LoginForm fields={registerFormFields} />;
 };
 
 export default Register;

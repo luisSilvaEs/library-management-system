@@ -24,9 +24,9 @@ const List = ({ collection }) => {
             </div>
             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
               <NavigationButton
-                text="View detail"
+                label="View detail"
                 type="primary"
-                url={book.title}
+                url="/books/detail/v12"
               />
             </div>
           </li>

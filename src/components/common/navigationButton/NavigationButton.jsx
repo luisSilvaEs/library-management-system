@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const NavigationButton = ({ label, type, url }) => {
   const getButtonClass = (_type) => {
     const CLASSES = {
@@ -16,9 +17,9 @@ const NavigationButton = ({ label, type, url }) => {
   const classForButton = getButtonClass(type);
 
   return (
-    <a href={url ? url : "#"} className={classForButton}>
+    <Link to={url ? url : "#"} className={classForButton}>
       {label ? label : "Click here!"}
-    </a>
+    </Link>
   );
 };
 
