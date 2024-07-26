@@ -1,6 +1,6 @@
 import React from "react";
 
-const ActionButton = ({ text, type, action }) => {
+const ActionButton = ({ label, type, action }) => {
   const getButtonClass = (_type) => {
     const CLASSES = {
       primary:
@@ -19,7 +19,7 @@ const ActionButton = ({ text, type, action }) => {
 
   return (
     <button type="button" className={classForButton} onClick={action}>
-      {text ? text : "Action Button"}
+      {label ? label : "Action Button"}
     </button>
   );
 };

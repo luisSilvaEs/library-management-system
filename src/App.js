@@ -1,6 +1,7 @@
 import NavigationButton from "./components/common/navigationButton/NavigationButton";
 import Books from "./pages/books/Books";
 import Detail from "./pages/detail/Detail";
+import Login from "./pages/login/Login";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
         </h1>
       </div>
       <div className="container mx-auto pt-9 flex flex-col justify-around">
-       <Detail />
+       <Login />
       </div>
     </div>
   );

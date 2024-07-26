@@ -23,7 +23,7 @@ const SearchForm = ({ searchTerm, setSearchTerm, action }) => {
             setSearchTerm(e.target.value);
           }}
         />
-        <ActionButton text="Search" type="primary" action={action} />
+        <ActionButton label="Search" type="primary" action={action} />
       </form>
     </div>
   );

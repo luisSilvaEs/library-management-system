@@ -99,17 +99,17 @@ const DetailForm = ({ initialBookInfo }) => {
       {showUpdateButtonGroup ? (
         <div className="mt-6 flex items-center justify-end gap-x-6">
           <ActionButton
-            text="Cancel"
+            label="Cancel"
             type="terciary"
             action={handlerOnClickCancel}
           />
-          <ActionButton text="Save" type="primary" action={() => {}} />
+          <ActionButton label="Save" type="primary" action={() => {}} />
         </div>
       ) : (
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <ActionButton text="Delete" type="terciary" action={() => {}} />
+          <ActionButton label="Delete" type="terciary" action={() => {}} />
           <ActionButton
-            text="Update"
+            label="Update"
             type="primary"
             action={handlerOnClickUpdate}
           />
