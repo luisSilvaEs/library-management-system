@@ -24,7 +24,7 @@ const Detail = () => {
     <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">
       <div className="mx-auto max-w-2xl">
         <div className="space-y-12">
-          <DetailForm bookInfo={book} />
+          <DetailForm initialBookInfo={book} />
         </div>
       </div>
     </div>

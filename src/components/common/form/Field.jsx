@@ -9,6 +9,7 @@ const Field = ({
   value,
   errorSettings,
   onChange,
+  disableField = false,
 }) => {
   const [error, setError] = useState(errorSettings);
 
@@ -61,6 +62,7 @@ const Field = ({
                 ? "error-message"
                 : "-"
             }`}
+            disabled={disableField}
           />
           {value?.current?.value &&
           value?.current?.value !== "" &&
