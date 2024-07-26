@@ -1,6 +1,6 @@
 import React from "react";
 
-const ActionButton = ({ label, type, action }) => {
+const ActionButton = ({ label, type, action, isSubmit }) => {
   const getButtonClass = (_type) => {
     const CLASSES = {
       primary:
@@ -18,7 +18,11 @@ const ActionButton = ({ label, type, action }) => {
   const classForButton = getButtonClass(type);
 
   return (
-    <button type="button" className={classForButton} onClick={action}>
+    <button
+      type={isSubmit ? "submit" : "button"}
+      className={classForButton}
+      onClick={action}
+    >
       {label ? label : "Action Button"}
     </button>
   );

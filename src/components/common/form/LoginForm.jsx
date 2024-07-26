@@ -1,18 +1,39 @@
 import Field from "./Field";
 import ActionButton from "../actionButton/ActionButton";
+import React, { useState } from "react";
 
-/**
- * - Collect username and password
- * - expect validation from database
- * - if validation is correct, redirect to Book page,
- * -- otherwise, show a yellow window above indicating user was not found or password is incorrect for this user
- */
-const handleOnClickLogin = () => {};
+const LoginForm = ({ fields, handleLogin }) => {
+  const [formValues, setFormValues] = useState(
+    fields.reduce((acc, field) => {
+      acc[field.id] = "";
+      return acc;
+    }, {})
+  );
+  const [error, setError] = useState(null);
 
-const LoginForm = ({ fields }) => {
+  const handleInputChange = (id, value) => {
+    setFormValues({
+      ...formValues,
+      [id]: value,
+    });
+  };
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    setError(null); // Reset error before attempting login
+    try {
+      handleLogin(formValues.email, formValues.password);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
   return (
     <>
-      <form action="" className="border-b border-gray-900/10 pb-12">
+      <form
+        className="border-b border-gray-900/10 pb-12"
+        onSubmit={handleOnSubmit}
+      >
         {fields.map((_field, index) => (
           <Field
             key={index}
@@ -21,11 +42,13 @@ const LoginForm = ({ fields }) => {
             type={_field.type}
             id={_field.id}
             labelWording={_field.labelWording}
-            value=""
+            value={formValues[_field.id]}
+            onChange={(e) => handleInputChange(_field.id, e.target.value)}
           />
         ))}
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+        <ActionButton label="Log in" type="primary" isSubmit={true} />
       </form>
-      <ActionButton label="Log in" type="primary" action={handleOnClickLogin} />
     </>
   );
 };

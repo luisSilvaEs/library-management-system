@@ -4,6 +4,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { Route, Routes } from "react-router-dom";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 const App = () => {
   return (
@@ -20,7 +21,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/books">
+        <Route path="/books" element={<ProtectedRoute />}>
           <Route index element={<Books />} />
           <Route path="detail/v12" element={<Detail />} />
         </Route>

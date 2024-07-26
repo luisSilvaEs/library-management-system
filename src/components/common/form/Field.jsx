@@ -52,9 +52,10 @@ const Field = ({
             id={id}
             value={value}
             onBlur={validateInputContentOnLeaveInput}
-            onChange={
-              onChange ? onChange : validateInputContentFormatAfterTyping
-            }
+            onChange={(e) => {
+              onChange(e);
+              validateInputContentFormatAfterTyping(e);
+            }}
             className={`${classesForInput ? classesForInput : ""} ${
               error?.validationPattern?.test(value?.current?.value || "")
                 ? "valid-format"
