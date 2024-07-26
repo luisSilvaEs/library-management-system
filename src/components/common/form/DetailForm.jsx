@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 const DetailForm = ({ initialBookInfo }) => {
   const [showUpdateButtonGroup, setshowUpdateButtonGroup] = useState(false);
   const [bookInfo, setBookInfo] = useState(initialBookInfo);
-  let [enableInputStyles, setEnableInputStyles] = useState(true);
-  let [enableInputHTML, setEnableInputHTML] = useState(true);
+  const [enableInputStyles, setEnableInputStyles] = useState(true);
+  const [enableInputHTML, setEnableInputHTML] = useState(true);
 
   const handleInputChange = (key, value) => {
     setBookInfo({
@@ -38,12 +38,45 @@ const DetailForm = ({ initialBookInfo }) => {
     disableInput();
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("Console.log", bookInfo);
+  };
+
+  const processStringField = (input) => {
+    if (!input) return "";
+
+    if (input.toLowerCase() === "isbn") {
+      return "ISBN";
+    }
+
+    if (/_/.test(input)) {
+      // Check for snake_case
+      return input
+        .split("_")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    } else if (/([a-z])([A-Z])/.test(input)) {
+      // Check for camelCase
+      return input
+        .replace(/([a-z])([A-Z])/g, "$1 $2")
+        .replace(/^./, input[0].toUpperCase());
+    } else {
+      // Assume flat case
+      return input.charAt(0).toUpperCase() + input.slice(1);
+    }
+  };
+
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
         Details from this book
       </h2>
-      <form action="" className="border-b border-gray-900/10 pb-12">
+      <form
+        action=""
+        onSubmit={handleSubmit}
+        className="border-b border-gray-900/10 pb-12"
+      >
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
           {Object.entries(bookInfo).map(([key, value]) => (
             <Field
@@ -54,7 +87,7 @@ const DetailForm = ({ initialBookInfo }) => {
                   : ""
               }`}
               type="text"
-              labelWording={key}
+              labelWording={processStringField(key)}
               value={value}
               id={value}
               onChange={(e) => handleInputChange(key, e.target.value)}
