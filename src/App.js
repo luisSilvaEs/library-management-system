@@ -1,5 +1,6 @@
 import NavigationButton from "./components/common/navigationButton/NavigationButton";
-import Books from "./pages/books/Books"
+import Books from "./pages/books/Books";
+import Detail from "./pages/detail/Detail";
 
 function App() {
   return (
@@ -9,10 +10,8 @@ function App() {
           Library Manager System
         </h1>
       </div>
-      <div className="container mx-auto pt-9 flex justify-around">
-      
-      
-      <Books />
+      <div className="container mx-auto pt-9 flex flex-col justify-around">
+       <Detail />
       </div>
     </div>
   );

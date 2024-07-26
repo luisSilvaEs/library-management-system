@@ -40,33 +40,39 @@ const Field = ({
   };
   /** removed ref={value ? value : ""} from input */
   return (
-    <>
+    <div className="sm:col-span-4">
       <label htmlFor={type} className={classesForLabel}>
         {labelWording}
       </label>
-      <input
-        type={type}
-        id={id}
-        value={value}
-        onBlur={validateInputContentOnLeaveInput}
-        onChange={onChange ? onChange : validateInputContentFormatAfterTyping}
-        className={`${classesForInput ? classesForInput : ""} ${
-          error?.validationPattern?.test(value?.current?.value || "")
-            ? "valid-format"
-            : value?.current?.value && value?.current?.value !== ""
-            ? "error-message"
-            : "-"
-        }`}
-      />
-      {value?.current?.value &&
-      value?.current?.value !== "" &&
-      !error?.validationPattern?.test(value?.current?.value || "") ? (
-        <div className="error-message">
-          {errorSettings?.icon}
-          <span>{errorSettings?.message}</span>
+      <div className="mt-2">
+        <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+          <input
+            type={type}
+            id={id}
+            value={value}
+            onBlur={validateInputContentOnLeaveInput}
+            onChange={
+              onChange ? onChange : validateInputContentFormatAfterTyping
+            }
+            className={`${classesForInput ? classesForInput : ""} ${
+              error?.validationPattern?.test(value?.current?.value || "")
+                ? "valid-format"
+                : value?.current?.value && value?.current?.value !== ""
+                ? "error-message"
+                : "-"
+            }`}
+          />
+          {value?.current?.value &&
+          value?.current?.value !== "" &&
+          !error?.validationPattern?.test(value?.current?.value || "") ? (
+            <div className="error-message">
+              {errorSettings?.icon}
+              <span>{errorSettings?.message}</span>
+            </div>
+          ) : null}
         </div>
-      ) : null}
-    </>
+      </div>
+    </div>
   );
 };
 
