@@ -1,7 +1,6 @@
-/** I need to explore the possibility to pass NavigationButton as a prop to List */
 import NavigationButton from "../navigationButton/NavigationButton";
 
-const List = ({ collection }) => {
+const List = ({ collection, setSelectedBook }) => {
   return (
     <div className="container mx-auto pt-9 flex justify-around">
       <ul role="list" className="divide-y divide-gray-100">
@@ -27,6 +26,7 @@ const List = ({ collection }) => {
                 label="View detail"
                 type="primary"
                 url="/books/detail/v12"
+                onClick={() => setSelectedBook(book)}
               />
             </div>
           </li>

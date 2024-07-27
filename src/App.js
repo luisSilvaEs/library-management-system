@@ -4,7 +4,8 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import { Route, Routes } from "react-router-dom";
-import ProtectedRoute from "./components/common/ProtectedRoute";
+import ProtectedRoute from "./contexts/ProtectedRoute";
+import { BookProvider } from "./contexts/BookContext";
 
 const App = () => {
   return (
@@ -17,15 +18,17 @@ const App = () => {
       <div className="container mx-auto pt-9 flex flex-col justify-around">
        
       </div>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/books" element={<ProtectedRoute />}>
-          <Route index element={<Books />} />
-          <Route path="detail/v12" element={<Detail />} />
-        </Route>
-      </Routes>
+      <BookProvider>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/books" element={<ProtectedRoute />}>
+            <Route index element={<Books />} />
+            <Route path="detail/v12" element={<Detail />} />
+          </Route>
+        </Routes>
+      </BookProvider>
     </div>
   );
 }
