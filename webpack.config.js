@@ -14,13 +14,13 @@ module.exports = override(
       stream: require.resolve("stream-browserify"),
       buffer: require.resolve("buffer/"),
       util: require.resolve("util/"),
-      process: require.resolve("process/browser"), // Add this line
+      process: require.resolve("process/browser"), 
     };
 
     config.plugins.push(
       new webpack.ProvidePlugin({
         Buffer: ["buffer", "Buffer"],
-        process: "process/browser", // Add this line
+        process: "process/browser", 
       })
     );
 

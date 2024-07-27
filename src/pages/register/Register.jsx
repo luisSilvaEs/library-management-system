@@ -1,4 +1,7 @@
-import LoginForm from "../../components/common/form/LoginForm";
+import React from "react";
+import RegisterForm from "../../components/common/form/RegisterForm";
+import { useNavigate } from "react-router-dom";
+import ModalGeneric from "../../components/common/Modal";
 
 const Register = () => {
   const CLASSES_LABEL = "block text-sm font-medium leading-6 text-gray-900";
@@ -21,13 +24,6 @@ const Register = () => {
       labelWording: "Last Name:",
     },
     {
-      classesForLabel: CLASSES_LABEL,
-      classesForInput: CLASSES_INPUT,
-      type: "text",
-      id: "employeeID",
-      labelWording: "Employee ID:",
-    },
-    {
       classesForLabel: `requiered ${CLASSES_LABEL}`,
       classesForInput: CLASSES_INPUT,
       type: "email",
@@ -43,7 +39,33 @@ const Register = () => {
     },
   ];
 
-  return <LoginForm fields={registerFormFields} />;
+  const messageModal = `User was succefully registered in the system`;
+
+  const [showModal, setShowModal] = React.useState(false);
+
+  const navigate = useNavigate();
+
+  const registerUser = (email, password, lastName, name) => {
+    const newUser = { email, password, lastName, name };
+    // Perform registration logic here
+    setShowModal(true);
+  };
+
+  const redirectToHome = () => {
+    navigate("/");
+  };
+
+  return (
+    <>
+      <RegisterForm fields={registerFormFields} handleRegister={registerUser} />
+      <ModalGeneric
+        showModal={showModal}
+        setShowModal={setShowModal}
+        message={messageModal}
+        action={redirectToHome}
+      />
+    </>
+  );
 };
 
 export default Register;

@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-const users = [
+let users = [
   { email: "user1@example.com", password: "password123" },
   { email: "user2@example.com", password: "password456" }
 ];
@@ -37,4 +37,8 @@ export const verifyToken = (token) => {
     console.error("Token verification failed:", error.message);
     return null;
   }
+};
+
+export const addNewUser = (newUser) => {
+  users.push(newUser);
 };
