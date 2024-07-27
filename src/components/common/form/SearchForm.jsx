@@ -2,7 +2,7 @@ import React from "react";
 import Field from "./Field";
 import ActionButton from "../actionButton/ActionButton";
 
-const SearchForm = ({ searchTerm, setSearchTerm, action }) => {
+const SearchForm = ({ searchTerm, setSearchTerm, action, disabledButton }) => {
   return (
     <div className="container mx-auto flex justify-center mt-9">
       <form
@@ -23,7 +23,12 @@ const SearchForm = ({ searchTerm, setSearchTerm, action }) => {
             setSearchTerm(e.target.value);
           }}
         />
-        <ActionButton label="Search" type="primary" action={action} />
+        <ActionButton
+          label="Search"
+          type="primary"
+          action={action}
+          disabled={disabledButton}
+        />
       </form>
     </div>
   );

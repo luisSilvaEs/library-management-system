@@ -1,12 +1,20 @@
+import React, { useState, useEffect } from "react";
 import Field from "./Field";
 import ActionButton from "../actionButton/ActionButton";
-import { useEffect, useState } from "react";
+import Spinner from "../Spinner";
+import ModalGeneric from "../Modal";
+import { useNavigate } from "react-router-dom";
 
 const DetailForm = ({ initialBookInfo }) => {
-  const [showUpdateButtonGroup, setshowUpdateButtonGroup] = useState(false);
+  const [showUpdateButtonGroup, setShowUpdateButtonGroup] = useState(false);
+  const [leavePageAfterUpdate, setLeavePageAfterUpdate] = useState(false);
   const [bookInfo, setBookInfo] = useState(initialBookInfo);
   const [enableInputStyles, setEnableInputStyles] = useState(true);
   const [enableInputHTML, setEnableInputHTML] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const messageModal = `Book information was successfully updated`;
+  const navigate = useNavigate();
 
   const handleInputChange = (key, value) => {
     setBookInfo({
@@ -15,27 +23,38 @@ const DetailForm = ({ initialBookInfo }) => {
     });
   };
 
-  const toogleInput = (enable) => {
+  const toggleInput = (enable) => {
     setEnableInputStyles(enable);
     setEnableInputHTML(enable);
   };
 
   const enableInput = () => {
-    toogleInput(false);
+    toggleInput(false);
   };
 
   const disableInput = () => {
-    toogleInput(true);
+    toggleInput(true);
   };
 
-  const handlerOnClickUpdate = () => {
-    setshowUpdateButtonGroup(true);
+  const handleOnClickUpdate = () => {
+    setShowUpdateButtonGroup(true);
     enableInput();
   };
 
-  const handlerOnClickCancel = () => {
-    setshowUpdateButtonGroup(false);
+  const handleOnClickCancel = () => {
+    setShowUpdateButtonGroup(false);
     disableInput();
+  };
+
+  const handleOnClickSave = () => {
+    setLeavePageAfterUpdate(true);
+    setTimeout(() => {
+      setShowModal(true);
+    }, 2000);
+  };
+
+  const redirectToBooks = () => {
+    navigate("/books");
   };
 
   const handleSubmit = async (event) => {
@@ -67,6 +86,14 @@ const DetailForm = ({ initialBookInfo }) => {
     }
   };
 
+  useEffect(() => {
+    if (leavePageAfterUpdate && showModal) {
+      setTimeout(() => {
+        redirectToBooks();
+      }, 5000);
+    }
+  }, [leavePageAfterUpdate, showModal]);
+
   return (
     <>
       <h2 className="text-base font-semibold leading-7 text-gray-900">
@@ -78,23 +105,27 @@ const DetailForm = ({ initialBookInfo }) => {
         className="border-b border-gray-900/10 pb-12"
       >
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          {Object.entries(bookInfo).map(([key, value], index) => (
-            <Field
-              key={index}
-              classesForLabel="block text-sm font-medium leading-6 text-gray-900"
-              classesForInput={`block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
-                enableInputStyles
-                  ? "disabled:bg-slate-50 disabled:text-gray-900"
-                  : ""
-              }`}
-              type="text"
-              labelWording={processStringField(key)}
-              value={value}
-              id={value}
-              onChange={(e) => handleInputChange(key, e.target.value)}
-              disableField={enableInputHTML}
-            />
-          ))}
+          {leavePageAfterUpdate ? (
+            <Spinner />
+          ) : (
+            Object.entries(bookInfo).map(([key, value], index) => (
+              <Field
+                key={index}
+                classesForLabel="block text-sm font-medium leading-6 text-gray-900"
+                classesForInput={`block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6 ${
+                  enableInputStyles
+                    ? "disabled:bg-slate-50 disabled:text-gray-900"
+                    : ""
+                }`}
+                type="text"
+                labelWording={processStringField(key)}
+                value={value}
+                id={value}
+                onChange={(e) => handleInputChange(key, e.target.value)}
+                disableField={enableInputHTML}
+              />
+            ))
+          )}
         </div>
       </form>
       {showUpdateButtonGroup ? (
@@ -102,9 +133,13 @@ const DetailForm = ({ initialBookInfo }) => {
           <ActionButton
             label="Cancel"
             type="terciary"
-            action={handlerOnClickCancel}
+            action={handleOnClickCancel}
           />
-          <ActionButton label="Save" type="primary" action={() => {}} />
+          <ActionButton
+            label="Save"
+            type="primary"
+            action={handleOnClickSave}
+          />
         </div>
       ) : (
         <div className="mt-6 flex items-center justify-end gap-x-6">
@@ -112,9 +147,17 @@ const DetailForm = ({ initialBookInfo }) => {
           <ActionButton
             label="Update"
             type="primary"
-            action={handlerOnClickUpdate}
+            action={handleOnClickUpdate}
           />
         </div>
+      )}
+      {showModal && (
+        <ModalGeneric
+          showModal={showModal}
+          setShowModal={setShowModal}
+          message={messageModal}
+          action={redirectToBooks}
+        />
       )}
     </>
   );

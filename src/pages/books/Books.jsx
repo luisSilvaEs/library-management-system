@@ -3,6 +3,7 @@ import SearchForm from "../../components/common/form/SearchForm";
 import List from "../../components/common/list/List";
 import { searchBooks as fetchBooksAPI } from "../../api/booksApi";
 import { useBook } from "../../contexts/BookContext";
+import Spinner from "../../components/common/Spinner";
 
 const Books = () => {
   const [query, setQuery] = useState("");
@@ -40,8 +41,9 @@ const Books = () => {
         searchTerm={query}
         setSearchTerm={setQuery}
         action={handleSearch}
+        disabledButton={loading}
       />
-      {loading && <p>Loading...</p>}
+      {loading && <Spinner />}
       {error && <p>{error}</p>}
       <List collection={collection} setSelectedBook={setSelectedBook} />
     </>

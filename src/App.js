@@ -25,7 +25,7 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/books" element={<ProtectedRoute />}>
             <Route index element={<Books />} />
-            <Route path="detail/v12" element={<Detail />} />
+            <Route path="detail" element={<Detail />} />
           </Route>
         </Routes>
       </BookProvider>

@@ -21,9 +21,9 @@ const Detail = () => {
   const { selectedBook } = useBook();
 
   const book = {
+    title: selectedBook.title,
     author: selectedBook["author_name"],
     isbn: selectedBook["isbn"][0],
-    title: selectedBook.title,
     publishedYear: selectedBook["publish_date"][0],
     numberOfPages: selectedBook["number_of_pages_median"],
     firstSentence: selectedBook["first_sentence"][0],

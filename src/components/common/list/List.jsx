@@ -25,7 +25,7 @@ const List = ({ collection, setSelectedBook }) => {
               <NavigationButton
                 label="View detail"
                 type="primary"
-                url="/books/detail/v12"
+                url="/books/detail"
                 onClick={() => setSelectedBook(book)}
               />
             </div>
