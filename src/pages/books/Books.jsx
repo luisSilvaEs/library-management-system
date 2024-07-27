@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import SearchForm from "../../components/common/form/SearchForm";
 import List from "../../components/common/list/List";
 import { searchBooks as fetchBooksAPI } from "../../api/booksApi";
+import { useBook } from "../../contexts/BookContext";
+import Spinner from "../../components/common/Spinner";
 
 const Books = () => {
   const [query, setQuery] = useState("");
   const [collection, setCollection] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { setSelectedBook } = useBook();
 
   useEffect(() => {
     console.log("Rerendered due to query ", query);
@@ -38,10 +41,11 @@ const Books = () => {
         searchTerm={query}
         setSearchTerm={setQuery}
         action={handleSearch}
+        disabledButton={loading}
       />
-      {loading && <p>Loading...</p>}
+      {loading && <Spinner />}
       {error && <p>{error}</p>}
-      <List collection={collection} />
+      <List collection={collection} setSelectedBook={setSelectedBook} />
     </>
   );
 };

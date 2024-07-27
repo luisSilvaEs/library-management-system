@@ -12,17 +12,26 @@
 
 import { useParams } from "react-router-dom";
 import DetailForm from "../../components/common/form/DetailForm";
+import { useBook } from "../../contexts/BookContext";
+import { useEffect } from "react";
 
 const Detail = () => {
   const id = useParams();
 
+  const { selectedBook } = useBook();
+
   const book = {
-    author: "Author Name",
-    isbn: "123-456-789",
-    title: "Book Title",
-    publishedYear: 2021,
-    id: "b12",
+    title: selectedBook.title,
+    author: selectedBook["author_name"],
+    isbn: selectedBook["isbn"][0],
+    publishedYear: selectedBook["publish_date"][0],
+    numberOfPages: selectedBook["number_of_pages_median"],
+    firstSentence: selectedBook["first_sentence"][0],
   };
+
+  useEffect(() => {
+    console.log("Data", selectedBook);
+  });
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-24 sm:px-6 sm:py-32 lg:px-8">

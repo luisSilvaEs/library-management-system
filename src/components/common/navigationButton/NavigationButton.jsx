@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-const NavigationButton = ({ label, type, url }) => {
+const NavigationButton = ({ label, type, url, onClick }) => {
   const getButtonClass = (_type) => {
     const CLASSES = {
       primary:
@@ -17,7 +17,7 @@ const NavigationButton = ({ label, type, url }) => {
   const classForButton = getButtonClass(type);
 
   return (
-    <Link to={url ? url : "#"} className={classForButton}>
+    <Link to={url ? url : "#"} className={classForButton} onClick={onClick}>
       {label ? label : "Click here!"}
     </Link>
   );
