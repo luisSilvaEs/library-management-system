@@ -12,8 +12,9 @@ const DetailForm = ({ initialBookInfo }) => {
   const [enableInputStyles, setEnableInputStyles] = useState(true);
   const [enableInputHTML, setEnableInputHTML] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
+  const [actionType, setActionType] = useState("");
 
-  const messageModal = `Book information was successfully updated`;
   const navigate = useNavigate();
 
   const handleInputChange = (key, value) => {
@@ -48,7 +49,18 @@ const DetailForm = ({ initialBookInfo }) => {
 
   const handleOnClickSave = () => {
     setLeavePageAfterUpdate(true);
+    setActionType("save");
     setTimeout(() => {
+      setModalMessage("Book information was successfully updated");
+      setShowModal(true);
+    }, 2000);
+  };
+
+  const handleOnClickDelete = () => {
+    setLeavePageAfterUpdate(true);
+    setActionType("delete");
+    setTimeout(() => {
+      setModalMessage("Book was successfully deleted");
       setShowModal(true);
     }, 2000);
   };
@@ -105,7 +117,8 @@ const DetailForm = ({ initialBookInfo }) => {
         className="border-b border-gray-900/10 pb-12"
       >
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-          {leavePageAfterUpdate ? (
+          {leavePageAfterUpdate &&
+          (actionType === "save" || actionType === "delete") ? (
             <Spinner />
           ) : (
             Object.entries(bookInfo).map(([key, value], index) => (
@@ -143,7 +156,11 @@ const DetailForm = ({ initialBookInfo }) => {
         </div>
       ) : (
         <div className="mt-6 flex items-center justify-end gap-x-6">
-          <ActionButton label="Delete" type="terciary" action={() => {}} />
+          <ActionButton
+            label="Delete"
+            type="terciary"
+            action={handleOnClickDelete}
+          />
           <ActionButton
             label="Update"
             type="primary"
@@ -155,7 +172,7 @@ const DetailForm = ({ initialBookInfo }) => {
         <ModalGeneric
           showModal={showModal}
           setShowModal={setShowModal}
-          message={messageModal}
+          message={modalMessage}
           action={redirectToBooks}
         />
       )}
