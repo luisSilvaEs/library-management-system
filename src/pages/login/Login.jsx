@@ -39,7 +39,11 @@ const Login = () => {
     }
   };
 
-  return <LoginForm fields={loginFormFields} handleLogin={handleLogin} />;
+  return (
+    <div className="flex justify-center space-x-4">
+      <LoginForm fields={loginFormFields} handleLogin={handleLogin} />
+    </div>
+  );
 };
 
 export default Login;

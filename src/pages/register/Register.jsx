@@ -56,7 +56,7 @@ const Register = () => {
   };
 
   return (
-    <>
+    <div className="flex justify-center space-x-4">
       <RegisterForm fields={registerFormFields} handleRegister={registerUser} />
       <ModalGeneric
         showModal={showModal}
@@ -64,7 +64,7 @@ const Register = () => {
         message={messageModal}
         action={redirectToHome}
       />
-    </>
+    </div>
   );
 };
 

@@ -16,7 +16,6 @@ const App = () => {
         </h1>
       </div>
       <div className="container mx-auto pt-9 flex flex-col justify-around">
-       
       </div>
       <BookProvider>
         <Routes>

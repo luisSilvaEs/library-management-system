@@ -4,7 +4,7 @@ const ActionButton = ({ label, type, action, isSubmit, disabled }) => {
   const getButtonClass = (_type) => {
     const CLASSES = {
       primary:
-        "inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-indigo-300 disabled:cursor-not-allowed",
+        "mx-3 my-6 inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-indigo-300 disabled:cursor-not-allowed",
       secondary:
         "inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:bg-gray-100 disabled:cursor-not-allowed",
       terciary:
@@ -18,14 +18,16 @@ const ActionButton = ({ label, type, action, isSubmit, disabled }) => {
   const classForButton = getButtonClass(type);
 
   return (
-    <button
-      type={isSubmit ? "submit" : "button"}
-      className={classForButton}
-      onClick={action}
-      disabled={disabled}
-    >
-      {label ? label : "Action Button"}
-    </button>
+    <div className="flex justify-center items-center">
+      <button
+        type={isSubmit ? "submit" : "button"}
+        className={classForButton}
+        onClick={action}
+        disabled={disabled}
+      >
+        {label ? label : "Action Button"}
+      </button>
+    </div>
   );
 };
 
